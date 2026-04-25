@@ -1,0 +1,117 @@
+P.No,Title,URL,Difficulty,Category,Expected TC,My TC,Solved
+13,Roman to Integer,https://leetcode.com/problems/roman-to-integer/,Easy,Algorithms,O(n),,False
+73,Set Matrix Zeroes,https://leetcode.com/problems/set-matrix-zeroes/,Medium,Algorithms,O(m * n),,False
+3,Longest Substring Without Repeating Characters,https://leetcode.com/problems/longest-substring-without-repeating-characters/,Medium,Algorithms,O(n),,False
+84,Largest Rectangle in Histogram,https://leetcode.com/problems/largest-rectangle-in-histogram/,Hard,Algorithms,O(n),,False
+155,Min Stack,https://leetcode.com/problems/min-stack/,Medium,Algorithms,O(1),,False
+234,Palindrome Linked List,https://leetcode.com/problems/palindrome-linked-list/,Easy,Algorithms,O(n),,False
+1520,Maximum Number of Non-Overlapping Substrings,https://leetcode.com/problems/maximum-number-of-non-overlapping-substrings/,Hard,Algorithms,O(n),,False
+455,Assign Cookies,https://leetcode.com/problems/assign-cookies/,Easy,Algorithms,O(n log n),,False
+103,Binary Tree Zigzag Level Order Traversal,https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/,Medium,Algorithms,O(n),,False
+876,Middle of the Linked List,https://leetcode.com/problems/middle-of-the-linked-list/,Easy,Algorithms,O(n),,False
+285,Inorder Successor in BST,https://leetcode.com/problems/inorder-successor-in-bst/,Medium,Algorithms,O(h),,False
+31,Next Permutation,https://leetcode.com/problems/next-permutation/,Medium,Algorithms,O(n),,False
+1312,Minimum Insertion Steps to Make a String Palindrome,https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/,Hard,Algorithms,O(n^2),,False
+653,Two Sum IV - Input is a BST,https://leetcode.com/problems/two-sum-iv-input-is-a-bst/,Easy,Algorithms,O(n),,False
+42,Trapping Rain Water,https://leetcode.com/problems/trapping-rain-water/,Hard,Algorithms,O(n),,False
+128,Longest Consecutive Sequence,https://leetcode.com/problems/longest-consecutive-sequence/,Medium,Algorithms,O(n),,False
+60,Permutation Sequence,https://leetcode.com/problems/permutation-sequence/,Hard,Algorithms,O(n^2),,False
+151,Reverse Words in a String,https://leetcode.com/problems/reverse-words-in-a-string/,Medium,Algorithms,O(n),,False
+88,Merge Sorted Array,https://leetcode.com/problems/merge-sorted-array/,Easy,Algorithms,O(n + m),,False
+38,Count and Say,https://leetcode.com/problems/count-and-say/,Medium,Algorithms,O(2^n),,False
+421,Maximum XOR of Two Numbers in an Array,https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/,Medium,Algorithms,O(n),,False
+101,Symmetric Tree,https://leetcode.com/problems/symmetric-tree/,Easy,Algorithms,O(n),,False
+18,4Sum,https://leetcode.com/problems/4sum/,Medium,Algorithms,O(n^3),,False
+51,N-Queens,https://leetcode.com/problems/n-queens/,Hard,Algorithms,O(n!),,False
+50,"Pow(x, n)",https://leetcode.com/problems/powx-n/,Medium,Algorithms,O(log n),,False
+215,Kth Largest Element in an Array,https://leetcode.com/problems/kth-largest-element-in-an-array/,Medium,Algorithms,O(n) / O(n log k),,False
+15,3Sum,https://leetcode.com/problems/3sum/,Medium,Algorithms,O(n^2),,False
+145,Binary Tree Postorder Traversal,https://leetcode.com/problems/binary-tree-postorder-traversal/,Easy,Algorithms,O(n),,False
+121,Best Time to Buy and Sell Stock,https://leetcode.com/problems/best-time-to-buy-and-sell-stock/,Easy,Algorithms,O(n),,False
+1,Two Sum,https://leetcode.com/problems/two-sum/,Easy,Algorithms,O(n),,False
+703,Kth Largest Element in a Stream,https://leetcode.com/problems/kth-largest-element-in-a-stream/,Easy,Algorithms,O(\log k),,False
+142,Linked List Cycle II,https://leetcode.com/problems/linked-list-cycle-ii/,Medium,Algorithms,O(n),,False
+287,Find the Duplicate Number,https://leetcode.com/problems/find-the-duplicate-number/,Medium,Algorithms,O(n),,False
+108,Convert Sorted Array to Binary Search Tree,https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/,Easy,Algorithms,O(n),,False
+686,Repeated String Match,https://leetcode.com/problems/repeated-string-match/,Medium,Algorithms,O(n + m),,False
+48,Rotate Image,https://leetcode.com/problems/rotate-image/,Medium,Algorithms,O(n^2),,False
+102,Binary Tree Level Order Traversal,https://leetcode.com/problems/binary-tree-level-order-traversal/,Medium,Algorithms,O(n),,False
+1707,Maximum XOR With an Element From Array,https://leetcode.com/problems/maximum-xor-with-an-element-from-array/,Hard,Algorithms,O(N \log N + Q \log Q),,False
+5,Longest Palindromic Substring,https://leetcode.com/problems/longest-palindromic-substring/,Medium,Algorithms,O(n) / O(n^2),,False
+199,Binary Tree Right Side View,https://leetcode.com/problems/binary-tree-right-side-view/,Medium,Algorithms,O(n),,False
+322,Coin Change,https://leetcode.com/problems/coin-change/,Medium,Algorithms,O(S * n),,False
+2,Add Two Numbers,https://leetcode.com/problems/add-two-numbers/,Medium,Algorithms,"O(max(n, m))",,False
+297,Serialize and Deserialize Binary Tree,https://leetcode.com/problems/serialize-and-deserialize-binary-tree/,Hard,Algorithms,O(n),,False
+64,Minimum Path Sum,https://leetcode.com/problems/minimum-path-sum/,Medium,Algorithms,O(m * n),,False
+206,Reverse Linked List,https://leetcode.com/problems/reverse-linked-list/,Easy,Algorithms,O(n),,False
+785,Is Graph Bipartite?,https://leetcode.com/problems/is-graph-bipartite/,Medium,Algorithms,O(V + E),,False
+901,Online Stock Span,https://leetcode.com/problems/online-stock-span/,Medium,Algorithms,O(1),,False
+545,Boundary of Binary Tree,https://leetcode.com/problems/boundary-of-binary-tree/,Medium,Algorithms,O(n),,False
+75,Sort Colors,https://leetcode.com/problems/sort-colors/,Medium,Algorithms,O(n),,False
+46,Permutations,https://leetcode.com/problems/permutations/,Medium,Algorithms,O(n * n!),,False
+40,Combination Sum II,https://leetcode.com/problems/combination-sum-ii/,Medium,Algorithms,O(2^n),,False
+124,Binary Tree Maximum Path Sum,https://leetcode.com/problems/binary-tree-maximum-path-sum/,Hard,Algorithms,O(n),,False
+100,Same Tree,https://leetcode.com/problems/same-tree/,Easy,Algorithms,O(n),,False
+25,Reverse Nodes in k-Group,https://leetcode.com/problems/reverse-nodes-in-k-group/,Hard,Algorithms,O(n),,False
+152,Maximum Product Subarray,https://leetcode.com/problems/maximum-product-subarray/,Medium,Algorithms,O(n),,False
+347,Top K Frequent Elements,https://leetcode.com/problems/top-k-frequent-elements/,Medium,Algorithms,O(n) / O(n log k),,False
+169,Majority Element,https://leetcode.com/problems/majority-element/,Easy,Algorithms,O(n),,False
+225,Implement Stack using Queues,https://leetcode.com/problems/implement-stack-using-queues/,Easy,Algorithms,O(n) push / O(1) pop,,False
+485,Max Consecutive Ones,https://leetcode.com/problems/max-consecutive-ones/,Easy,Algorithms,O(n),,False
+295,Find Median from Data Stream,https://leetcode.com/problems/find-median-from-data-stream/,Hard,Algorithms,O(log n),,False
+230,Kth Smallest Element in a BST,https://leetcode.com/problems/kth-smallest-element-in-a-bst/,Medium,Algorithms,O(h + k),,False
+110,Balanced Binary Tree,https://leetcode.com/problems/balanced-binary-tree/,Easy,Algorithms,O(n),,False
+116,Populating Next Right Pointers in Each Node,https://leetcode.com/problems/populating-next-right-pointers-in-each-node/,Medium,Algorithms,O(n),,False
+74,Search a 2D Matrix,https://leetcode.com/problems/search-a-2d-matrix/,Medium,Algorithms,O(log(mn)),,False
+8,String to Integer (atoi),https://leetcode.com/problems/string-to-integer-atoi/,Medium,Algorithms,O(n),,False
+543,Diameter of Binary Tree,https://leetcode.com/problems/diameter-of-binary-tree/,Easy,Algorithms,O(n),,False
+662,Maximum Width of Binary Tree,https://leetcode.com/problems/maximum-width-of-binary-tree/,Medium,Algorithms,O(n),,False
+19,Remove Nth Node From End of List,https://leetcode.com/problems/remove-nth-node-from-end-of-list/,Medium,Algorithms,O(n),,False
+1008,Construct Binary Search Tree from Preorder Traversal,https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/,Medium,Algorithms,O(n),,False
+53,Maximum Subarray,https://leetcode.com/problems/maximum-subarray/,Medium,Algorithms,O(n),,False
+138,Copy List with Random Pointer,https://leetcode.com/problems/copy-list-with-random-pointer/,Medium,Algorithms,O(n),,False
+540,Single Element in a Sorted Array,https://leetcode.com/problems/single-element-in-a-sorted-array/,Medium,Algorithms,O(log n),,False
+72,Edit Distance,https://leetcode.com/problems/edit-distance/,Medium,Algorithms,O(m * n),,False
+4,Median of Two Sorted Arrays,https://leetcode.com/problems/median-of-two-sorted-arrays/,Hard,Algorithms,"O(log(min(m, n)))",,False
+173,Binary Search Tree Iterator,https://leetcode.com/problems/binary-search-tree-iterator/,Medium,Algorithms,O(1),,False
+207,Course Schedule,https://leetcode.com/problems/course-schedule/,Medium,Algorithms,O(V + E),,False
+106,Construct Binary Tree from Inorder and Postorder Traversal,https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/,Medium,Algorithms,O(n),,False
+242,Valid Anagram,https://leetcode.com/problems/valid-anagram/,Easy,Algorithms,O(n),,False
+229,Majority Element II,https://leetcode.com/problems/majority-element-ii/,Medium,Algorithms,O(n),,False
+239,Sliding Window Maximum,https://leetcode.com/problems/sliding-window-maximum/,Hard,Algorithms,O(n),,False
+37,Sudoku Solver,https://leetcode.com/problems/sudoku-solver/,Hard,Algorithms,O(9^m),,False
+39,Combination Sum,https://leetcode.com/problems/combination-sum/,Medium,Algorithms,O(n^(T/M + 1)),,False
+235,Lowest Common Ancestor of a Binary Search Tree,https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/,Medium,Algorithms,O(h),,False
+200,Number of Islands,https://leetcode.com/problems/number-of-islands/,Medium,Algorithms,O(M * N),,False
+165,Compare Version Numbers,https://leetcode.com/problems/compare-version-numbers/,Medium,Algorithms,O(n + m),,False
+114,Flatten Binary Tree to Linked List,https://leetcode.com/problems/flatten-binary-tree-to-linked-list/,Medium,Algorithms,O(n),,False
+733,Flood Fill,https://leetcode.com/problems/flood-fill/,Easy,Algorithms,O(n),,False
+236,Lowest Common Ancestor of a Binary Tree,https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/,Medium,Algorithms,O(n),,False
+994,Rotting Oranges,https://leetcode.com/problems/rotting-oranges/,Medium,Algorithms,O(m * n),,False
+26,Remove Duplicates from Sorted Array,https://leetcode.com/problems/remove-duplicates-from-sorted-array/,Easy,Algorithms,O(n),,False
+493,Reverse Pairs,https://leetcode.com/problems/reverse-pairs/,Hard,Algorithms,O(n log n),,False
+62,Unique Paths,https://leetcode.com/problems/unique-paths/,Medium,Algorithms,O(m * n) / O(n),,False
+144,Binary Tree Preorder Traversal,https://leetcode.com/problems/binary-tree-preorder-traversal/,Easy,Algorithms,O(n),,False
+21,Merge Two Sorted Lists,https://leetcode.com/problems/merge-two-sorted-lists/,Easy,Algorithms,O(n + m),,False
+237,Delete Node in a Linked List,https://leetcode.com/problems/delete-node-in-a-linked-list/,Medium,Algorithms,O(1),,False
+160,Intersection of Two Linked Lists,https://leetcode.com/problems/intersection-of-two-linked-lists/,Easy,Algorithms,O(n + m),,False
+232,Implement Queue using Stacks,https://leetcode.com/problems/implement-queue-using-stacks/,Easy,Algorithms,O(1),,False
+90,Subsets II,https://leetcode.com/problems/subsets-ii/,Medium,Algorithms,O(n * 2^n),,False
+20,Valid Parentheses,https://leetcode.com/problems/valid-parentheses/,Easy,Algorithms,O(n),,False
+104,Maximum Depth of Binary Tree,https://leetcode.com/problems/maximum-depth-of-binary-tree/,Easy,Algorithms,O(n),,False
+105,Construct Binary Tree from Preorder and Inorder Traversal,https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/,Medium,Algorithms,O(n),,False
+141,Linked List Cycle,https://leetcode.com/problems/linked-list-cycle/,Easy,Algorithms,O(n),,False
+460,LFU Cache,https://leetcode.com/problems/lfu-cache/,Hard,Algorithms,O(1),,False
+700,Search in a Binary Search Tree,https://leetcode.com/problems/search-in-a-binary-search-tree/,Easy,Algorithms,O(h),,False
+33,Search in Rotated Sorted Array,https://leetcode.com/problems/search-in-rotated-sorted-array/,Medium,Algorithms,O(log n),,False
+94,Binary Tree Inorder Traversal,https://leetcode.com/problems/binary-tree-inorder-traversal/,Easy,Algorithms,O(n),,False
+14,Longest Common Prefix,https://leetcode.com/problems/longest-common-prefix/,Easy,Algorithms,O(S),,False
+133,Clone Graph,https://leetcode.com/problems/clone-graph/,Medium,Algorithms,O(V + E),,False
+987,Vertical Order Traversal of a Binary Tree,https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/,Hard,Algorithms,O(n log n),,False
+118,Pascal's Triangle,https://leetcode.com/problems/pascals-triangle/,Easy,Algorithms,O(n^2),,False
+496,Next Greater Element I,https://leetcode.com/problems/next-greater-element-i/,Easy,Algorithms,O(n + m),,False
+1373,Maximum Sum BST in Binary Tree,https://leetcode.com/problems/maximum-sum-bst-in-binary-tree/,Hard,Algorithms,O(n),,False
+208,Implement Trie (Prefix Tree),https://leetcode.com/problems/implement-trie-prefix-tree/,Medium,Algorithms,O(L),,False
+61,Rotate List,https://leetcode.com/problems/rotate-list/,Medium,Algorithms,O(n),,False
+98,Validate Binary Search Tree,https://leetcode.com/problems/validate-binary-search-tree/,Medium,Algorithms,O(n),,False
+56,Merge Intervals,https://leetcode.com/problems/merge-intervals/,Medium,Algorithms,O(n log n),,False
