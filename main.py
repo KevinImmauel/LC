@@ -116,7 +116,7 @@ SHEET_URL = "https://docs.google.com/spreadsheets/d/1zRyVIa84LTOxBewmiQIcPqKFRUk
 
 def fetch_data():
     """Fetches data from Google Sheets. Cached for 10 minutes to save API quotas."""
-    df = conn.read(spreadsheet=SHEET_URL, ttl="10m")
+    df = conn.read(spreadsheet=SHEET_URL,worksheet="new", ttl="10m")
     
     # 1. Strip accidental spaces from Google Sheet column names (e.g., "Solved " -> "Solved")
     df.columns = df.columns.str.strip()
@@ -233,12 +233,13 @@ for cat in STRIVERS_SDE_CATEGORIES:
             changes_made = True
 
 # --- Auto-Save Mechanism to Google Sheets ---
+# --- Auto-Save Mechanism to Google Sheets ---
 if changes_made:
     # 1. Update our local session state so the UI stays lightning fast
     st.session_state["tracker_data"] = df
     
-    # 2. Push the update to Google Sheets (Uses a Write quota, not a Read quota)
-    conn.update(spreadsheet=SHEET_URL, data=df)
+    # 2. Push the update specifically to the "new" tab
+    conn.update(spreadsheet=SHEET_URL, worksheet="new", data=df)
     
     # 3. Clear the connection cache so the NEXT time you hard-refresh, it gets the latest data
     st.cache_data.clear()
