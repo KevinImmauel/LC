@@ -118,13 +118,23 @@ def fetch_data():
     """Fetches data from Google Sheets. Cached for 10 minutes to save API quotas."""
     df = conn.read(spreadsheet=SHEET_URL, ttl="10m")
     
-    if 'Solved' in df.columns:
+    # 1. Strip accidental spaces from Google Sheet column names (e.g., "Solved " -> "Solved")
+    df.columns = df.columns.str.strip()
+    
+    # 2. Bulletproof the 'Solved' column
+    if 'Solved' not in df.columns:
+        df['Solved'] = False  # Create it if it's missing entirely
+    else:
         df['Solved'] = df['Solved'].astype(str).str.lower().map({'true': True, 'false': False, '1': True, '0': False})
         df['Solved'] = df['Solved'].fillna(False).astype(bool)
         
-    if 'My TC' in df.columns:
+    # 3. Bulletproof the 'My TC' column
+    if 'My TC' not in df.columns:
+        df['My TC'] = ""
+    else:
         df['My TC'] = df['My TC'].fillna("")
         
+    # 4. Bulletproof the 'P.No' column
     if 'P.No' in df.columns:
         df['P.No'] = df['P.No'].astype(str)
         
