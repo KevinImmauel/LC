@@ -1,6 +1,81 @@
 import streamlit as st
 import pandas as pd
 import os
+import time
+import hashlib
+import hmac
+from streamlit_gsheets import GSheetsConnection
+
+# --- Page Config ---
+st.set_page_config(page_title="LeetCode SDE Tracker", layout="wide")
+
+# --- Security Fortress (Hash & Rate Limit) ---
+MAX_ATTEMPTS = 5
+LOCKOUT_DURATION = 300  # 5 minutes in seconds
+
+def check_password():
+    """Returns True if the user had the correct password."""
+    
+    # Initialize session state variables for rate limiting
+    if "failed_attempts" not in st.session_state:
+        st.session_state["failed_attempts"] = 0
+    if "lockout_time" not in st.session_state:
+        st.session_state["lockout_time"] = 0
+
+    def password_entered():
+        """Checks whether a password entered by the user is correct."""
+        # Calculate how much time is left in the lockout
+        time_left = st.session_state["lockout_time"] - time.time()
+        
+        if time_left > 0:
+            st.error(f"[LOCKED] Too many failed attempts. Locked out for {int(time_left // 60)}m {int(time_left % 60)}s.")
+            return
+
+        # Hash the user's input
+        entered_password = st.session_state["password"]
+        entered_hash = hashlib.sha256(entered_password.encode()).hexdigest()
+        
+        # hmac.compare_digest prevents "timing attacks"
+        if hmac.compare_digest(entered_hash, st.secrets["password_hash"]):
+            st.session_state["password_correct"] = True
+            st.session_state["failed_attempts"] = 0  # Reset attempts on success
+            del st.session_state["password"]  # Clear the password from memory
+        else:
+            st.session_state["password_correct"] = False
+            st.session_state["failed_attempts"] += 1
+            
+            # Trigger lockout if they hit the max
+            if st.session_state["failed_attempts"] >= MAX_ATTEMPTS:
+                st.session_state["lockout_time"] = time.time() + LOCKOUT_DURATION
+
+    # --- UI Logic ---
+    if "password_correct" not in st.session_state:
+        st.title("Access Restricted")
+        st.text_input("Enter password:", type="password", on_change=password_entered, key="password")
+        return False
+        
+    elif not st.session_state["password_correct"]:
+        st.title("Access Restricted")
+        time_left = st.session_state["lockout_time"] - time.time()
+        
+        # Disable the input box entirely if they are locked out
+        if time_left > 0:
+            st.error(f"[SYSTEM LOCKED] Please wait {int(time_left // 60)}m {int(time_left % 60)}s before trying again.")
+        else:
+            st.text_input("Enter password:", type="password", on_change=password_entered, key="password")
+            st.error(f"Incorrect password. Attempt {st.session_state['failed_attempts']}/{MAX_ATTEMPTS}")
+        return False
+        
+    else:
+        return True
+
+# Stop the script entirely if the password is not correct
+if not check_password():
+    st.stop()
+
+# ==========================================
+# --- THE REST OF YOUR APP STARTS HERE ---
+# ==========================================
 
 st.set_page_config(page_title="LeetCode SDE Tracker", page_icon="🚀", layout="wide")
 CSV_FILENAME = "new.csv"
@@ -35,12 +110,16 @@ STRIVERS_SDE_CATEGORIES = [
     "Trie"
 ]
 
+# --- Load Data from Google Sheets ---
+# Get the connection
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+# Replace this URL with the actual URL of your Google Sheet
+SHEET_URL = "https://docs.google.com/spreadsheets/d/1zRyVIa84LTOxBewmiQIcPqKFRUk-eg9sEV2EVN0Sj9o/edit"
+
 def load_data():
-    if not os.path.exists(CSV_FILENAME):
-        st.error(f"❌ '{CSV_FILENAME}' not found. Please ensure the CSV is in the same folder.")
-        st.stop()
-        
-    df = pd.read_csv(CSV_FILENAME)
+    # ttl=0 ensures it doesn't cache stale data, it always fetches fresh
+    df = conn.read(spreadsheet=SHEET_URL, ttl=0)
     
     if 'Solved' in df.columns:
         df['Solved'] = df['Solved'].astype(str).str.lower().map({'true': True, 'false': False, '1': True, '0': False})
@@ -141,9 +220,12 @@ for cat in STRIVERS_SDE_CATEGORIES:
                 df.loc[cat_df.index, col] = edited_cat_df[col]
             changes_made = True
 
+# --- Auto-Save Mechanism to Google Sheets ---
 if changes_made:
-    df.to_csv(CSV_FILENAME, index=False)
-    st.toast("✅ Progress saved automatically!")
+    # Update the Google Sheet
+    conn.update(spreadsheet=SHEET_URL, data=df)
+    
+    st.toast("Progress saved automatically to the Cloud!")
     st.rerun()
 
 st.divider()
