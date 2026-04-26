@@ -7,7 +7,7 @@ import hmac
 from streamlit_gsheets import GSheetsConnection
 
 # --- Page Config ---
-st.set_page_config(page_title="LeetCode SDE Tracker", layout="wide")
+st.set_page_config(page_title="LeetCode SDE Tracker", page_icon="🚀", layout="wide")
 
 # --- Security Fortress (Hash & Rate Limit) ---
 MAX_ATTEMPTS = 5
@@ -77,9 +77,6 @@ if not check_password():
 # --- THE REST OF YOUR APP STARTS HERE ---
 # ==========================================
 
-st.set_page_config(page_title="LeetCode SDE Tracker", page_icon="🚀", layout="wide")
-CSV_FILENAME = "new.csv"
-
 STRIVERS_SDE_CATEGORIES = [
     "Arrays",
     "Arrays Part-II",
@@ -117,9 +114,9 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 # Replace this URL with the actual URL of your Google Sheet
 SHEET_URL = "https://docs.google.com/spreadsheets/d/1zRyVIa84LTOxBewmiQIcPqKFRUk-eg9sEV2EVN0Sj9o/edit"
 
-def load_data():
-    # ttl=0 ensures it doesn't cache stale data, it always fetches fresh
-    df = conn.read(spreadsheet=SHEET_URL, ttl=0)
+def fetch_data():
+    """Fetches data from Google Sheets. Cached for 10 minutes to save API quotas."""
+    df = conn.read(spreadsheet=SHEET_URL, ttl="10m")
     
     if 'Solved' in df.columns:
         df['Solved'] = df['Solved'].astype(str).str.lower().map({'true': True, 'false': False, '1': True, '0': False})
@@ -133,7 +130,12 @@ def load_data():
         
     return df
 
-df = load_data()
+# Initialize session state so we ONLY read from the Google API once per visit
+if "tracker_data" not in st.session_state:
+    st.session_state["tracker_data"] = fetch_data()
+
+# For the rest of the script, we use the local memory copy, not the Google API
+df = st.session_state["tracker_data"]
 
 st.title("🚀 Striver's SDE Sheet Tracker")
 
@@ -222,10 +224,16 @@ for cat in STRIVERS_SDE_CATEGORIES:
 
 # --- Auto-Save Mechanism to Google Sheets ---
 if changes_made:
-    # Update the Google Sheet
+    # 1. Update our local session state so the UI stays lightning fast
+    st.session_state["tracker_data"] = df
+    
+    # 2. Push the update to Google Sheets (Uses a Write quota, not a Read quota)
     conn.update(spreadsheet=SHEET_URL, data=df)
     
-    st.toast("Progress saved automatically to the Cloud!")
+    # 3. Clear the connection cache so the NEXT time you hard-refresh, it gets the latest data
+    st.cache_data.clear()
+    
+    st.toast("✅ Progress saved automatically to the Cloud!")
     st.rerun()
 
 st.divider()
