@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login — LC Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@800&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0a0e13;
+            --surface: #111820;
+            --border: #1e2a35;
+            --text: #cdd9e5;
+            --muted: #546e7a;
+            --accent: #58a6ff;
+            --error: #f85149;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 360px;
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.4rem;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            padding: 0.7rem 1rem;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        input[type="password"]:focus {
+            border-color: var(--accent);
+        }
+
+        .error {
+            color: var(--error);
+            font-size: 0.75rem;
+            margin-top: 0.75rem;
+            display: none;
+        }
+
+        .error.visible {
+            display: block;
+        }
+
+        button {
+            margin-top: 1.5rem;
+            width: 100%;
+            background: var(--accent);
+            color: #0a0e13;
+            border: none;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: opacity 0.15s;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>LC Tracker</h1>
+        <p class="subtitle">Enter your password to continue</p>
+
+        <!-- action="/login" method="POST" sends the form to Go's POST /login handler -->
+        <form action="/login" method="POST">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" autofocus autocomplete="current-password" />
+            <!-- Show error if URL has ?error=1 (set by handleLogin on wrong password) -->
+            <p class="error" id="err">Wrong password. Try again.</p>
+            <button type="submit">Enter →</button>
+        </form>
+    </div>
+
+    <script>
+        // If Go redirected back with ?error=1, show the error message
+        if (new URLSearchParams(window.location.search).get('error')) {
+            document.getElementById('err').classList.add('visible')
+        }
+    </script>
+</body>
+
+</html>

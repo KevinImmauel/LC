@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LC Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0a0e13;
+      --surface: #111820;
+      --border: #1e2a35;
+      --text: #cdd9e5;
+      --muted: #546e7a;
+      --easy: #39d353;
+      --medium: #f0a500;
+      --hard: #f85149;
+      --accent: #58a6ff;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    /* ── Header ── */
+    header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    header span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    /* ── Stats Bar ── */
+    .stats {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.8rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .stat-card .label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+    }
+
+    .stat-card .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .stat-card.easy .value {
+      color: var(--easy);
+    }
+
+    .stat-card.medium .value {
+      color: var(--medium);
+    }
+
+    .stat-card.hard .value {
+      color: var(--hard);
+    }
+
+    /* ── Controls ── */
+    .controls {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    input,
+    select {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      padding: 0.5rem 0.9rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    input {
+      width: 240px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--accent);
+    }
+
+    input::placeholder {
+      color: var(--muted);
+    }
+
+    /* ── Table ── */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    thead th {
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.85rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.1s;
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: var(--surface);
+    }
+
+    td {
+      padding: 0.85rem 1rem;
+      vertical-align: middle;
+    }
+
+    /* number col */
+    .col-num {
+      color: var(--muted);
+      width: 70px;
+    }
+
+    /* title link */
+    .col-title a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .col-title a:hover {
+      color: var(--accent);
+    }
+
+    /* difficulty badge */
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .badge.Easy {
+      background: #39d35322;
+      color: var(--easy);
+    }
+
+    .badge.Medium {
+      background: #f0a50022;
+      color: var(--medium);
+    }
+
+    .badge.Hard {
+      background: #f8514922;
+      color: var(--hard);
+    }
+
+    /* TC cols */
+    .col-tc {
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .col-tc span {
+      color: var(--text);
+    }
+
+    /* solved dot */
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      display: inline-block;
+    }
+
+    .dot.solved {
+      background: var(--easy);
+      box-shadow: 0 0 6px var(--easy);
+    }
+
+    /* empty / loading state */
+    .state-row td {
+      text-align: center;
+      color: var(--muted);
+      padding: 3rem;
+    }
+
+    /* Editable input inside table */
+    input.edit-input {
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      padding: 0.25rem 0.5rem;
+      width: 100px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    input.edit-input:hover {
+      border-color: var(--border);
+    }
+
+    input.edit-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: var(--surface);
+    }
+
+    /* Editable select inside table */
+    select.edit-select {
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      padding: 0.25rem 0.5rem;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    select.edit-select:hover {
+      border-color: var(--border);
+    }
+
+    select.edit-select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>LC Tracker</h1>
+    <span id="subtitle">loading...</span>
+
+    <!-- Add this logout form — POST is safer than a link for actions -->
+    <form action="/logout" method="POST" style="margin-left:auto">
+      <button type="submit" style="
+      background: none;
+      border: 1px solid #1e2a35;
+      color: #546e7a;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      cursor: pointer;
+    ">logout</button>
+    </form>
+  </header>
+
+  <div class="stats">
+    <div class="stat-card">
+      <span class="label">Total Solved</span>
+      <span class="value" id="stat-total">—</span>
+    </div>
+    <div class="stat-card easy">
+      <span class="label">Easy</span>
+      <span class="value" id="stat-easy">—</span>
+    </div>
+    <div class="stat-card medium">
+      <span class="label">Medium</span>
+      <span class="value" id="stat-medium">—</span>
+    </div>
+    <div class="stat-card hard">
+      <span class="label">Hard</span>
+      <span class="value" id="stat-hard">—</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Search title or category..." />
+    <select id="filter-difficulty">
+      <option value="">All Difficulties</option>
+      <option value="Easy">Easy</option>
+      <option value="Medium">Medium</option>
+      <option value="Hard">Hard</option>
+    </select>
+    <select id="filter-category">
+      <option value="">All Categories</option>
+    </select>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Difficulty</th>
+          <th>Category</th>
+          <th>Expected TC</th>
+          <th>My TC</th> <!-- editable -->
+          <th>Solved</th> <!-- editable -->
+          <th>Optimal</th> <!-- editable -->
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <tr class="state-row">
+          <td colspan="7">Loading...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    let allProblems = []
+
+    // Fetch problems from our Go API
+    async function loadProblems() {
+      const res = await fetch('/api/problems')
+      allProblems = await res.json()
+      populateCategoryFilter()
+      updateStats(allProblems)
+      renderTable(allProblems)
+      document.getElementById('subtitle').textContent =
+        `${allProblems.length} problems logged`
+    }
+
+    // Fill the category dropdown dynamically from your data
+    function populateCategoryFilter() {
+      const categories = [...new Set(allProblems.map(p => p.category))]
+      const select = document.getElementById('filter-category')
+      categories.sort().forEach(cat => {
+        const opt = document.createElement('option')
+        opt.value = cat
+        opt.textContent = cat
+        select.appendChild(opt)
+      })
+    }
+
+    // Update the 4 stat cards
+    function updateStats(problems) {
+      const solved = problems.filter(p => p.solved === 'True')
+      document.getElementById('stat-total').textContent = solved.length
+      document.getElementById('stat-easy').textContent = solved.filter(p => p.difficulty === 'Easy').length
+      document.getElementById('stat-medium').textContent = solved.filter(p => p.difficulty === 'Medium').length
+      document.getElementById('stat-hard').textContent = solved.filter(p => p.difficulty === 'Hard').length
+    }
+
+    // Build table rows from an array of problems
+    function renderTable(problems) {
+      const tbody = document.getElementById('table-body')
+
+      if (problems.length === 0) {
+        tbody.innerHTML = '<tr class="state-row"><td colspan="8">No problems found</td></tr>'
+        return
+      }
+
+      tbody.innerHTML = problems.map(p => `
+        <tr data-number="${p.number}">
+            <td class="col-num">${p.number}</td>
+            <td class="col-title">
+                <a href="${p.url}" target="_blank">${p.title}</a>
+            </td>
+            <td><span class="badge ${p.difficulty}">${p.difficulty}</span></td>
+            <td>${p.category}</td>
+            <td class="col-tc">${p.expected_tc}</td>
+
+            <!-- Editable cells — note the data-field attribute -->
+            <td>
+                <input
+                    class="edit-input"
+                    data-field="my_tc"
+                    value="${p.my_tc}"
+                    data-number="${p.number}"
+                />
+            </td>
+            <td>
+                <select class="edit-select" data-field="solved" data-number="${p.number}">
+                    <option value="True"  ${p.solved === 'True' ? 'selected' : ''}>✓ Yes</option>
+                    <option value="False" ${p.solved === 'False' ? 'selected' : ''}>✗ No</option>
+                </select>
+            </td>
+            <td>
+                <select class="edit-select" data-field="isoptimal" data-number="${p.number}">
+                    <option value="True"  ${p.isoptimal === 'True' ? 'selected' : ''}>✓ Yes</option>
+                    <option value="False" ${p.isoptimal === 'False' ? 'selected' : ''}>✗ No</option>
+                </select>
+            </td>
+        </tr>
+    `).join('')
+
+      // Wire up events AFTER the rows are in the DOM
+      attachEditListeners()
+    }
+
+    function attachEditListeners() {
+      // my_tc — save when user presses Enter or clicks away
+      document.querySelectorAll('input.edit-input').forEach(input => {
+        input.addEventListener('blur', () => saveField(input))
+        input.addEventListener('keydown', e => {
+          if (e.key === 'Enter') input.blur()
+        })
+      })
+
+      // solved + isoptimal — save immediately on change
+      document.querySelectorAll('select.edit-select').forEach(select => {
+        select.addEventListener('change', () => saveField(select))
+      })
+    }
+
+    async function saveField(el) {
+      const number = el.dataset.number
+      const field = el.dataset.field
+      const value = el.value
+
+      // Build the current values for this row by reading all inputs in the same <tr>
+      const row = el.closest('tr')
+      const my_tc = row.querySelector('[data-field="my_tc"]').value
+      const solved = row.querySelector('[data-field="solved"]').value
+      const isoptimal = row.querySelector('[data-field="isoptimal"]').value
+
+      const res = await fetch(`/api/problems/${encodeURIComponent(number)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ my_tc, solved, isoptimal })
+      })
+
+      // Visual feedback
+      if (res.ok) {
+        el.style.borderColor = 'var(--easy)'           // flash green
+        setTimeout(() => el.style.borderColor = '', 1000)
+      } else if (res.status === 401) {
+        window.location.href = '/login'
+      } else {
+        el.style.borderColor = 'var(--hard)'           // flash red
+      }
+    }
+
+    // Filter problems based on search + dropdowns
+    function applyFilters() {
+      const search = document.getElementById('search').value.toLowerCase()
+      const difficulty = document.getElementById('filter-difficulty').value
+      const category = document.getElementById('filter-category').value
+
+      const filtered = allProblems.filter(p => {
+        const matchSearch = p.title.toLowerCase().includes(search)
+          || p.category.toLowerCase().includes(search)
+        const matchDiff = !difficulty || p.difficulty === difficulty
+        const matchCat = !category || p.category === category
+        return matchSearch && matchDiff && matchCat
+      })
+
+      updateStats(filtered)
+      renderTable(filtered)
+    }
+
+    // Wire up controls
+    document.getElementById('search').addEventListener('input', applyFilters)
+    document.getElementById('filter-difficulty').addEventListener('change', applyFilters)
+    document.getElementById('filter-category').addEventListener('change', applyFilters)
+
+    // Kick everything off
+    loadProblems()
+  </script>
+</body>
+
+</html>
